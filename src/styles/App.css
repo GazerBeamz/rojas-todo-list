@@ -382,3 +382,69 @@ body {
     margin-top: 0.5rem;
   }
 }
+
+/* General Styles for Smaller Screens */
+@media (max-width: 768px) {
+  /* Adjust the container padding */
+  .container {
+    padding: 1rem;
+  }
+
+  /* Stack the form inputs and button vertically */
+  .todo-form {
+    flex-direction: column; /* Stack elements vertically */
+    gap: 0.5rem; /* Add spacing between elements */
+  }
+
+  .todo-input,
+  .todo-deadline {
+    flex: none; /* Remove flex to allow full width */
+    width: 100%; /* Make inputs take full width */
+  }
+
+  .todo-button {
+    width: 100%; /* Make the button take full width */
+    text-align: center;
+  }
+
+  /* Adjust the to-do list items */
+  .todo-item {
+    flex-direction: column; /* Stack content vertically */
+    align-items: flex-start; /* Align items to the left */
+    padding: 0.8rem;
+  }
+
+  .todo-text {
+    margin-bottom: 0.5rem; /* Add spacing below the text */
+  }
+
+  .todo-deadline {
+    margin: 0; /* Remove extra margins */
+  }
+
+  .todo-actions {
+    justify-content: flex-start; /* Align actions to the left */
+    gap: 1rem; /* Add spacing between buttons */
+  }
+}
+
+/* Styles for Extra Small Screens */
+@media (max-width: 480px) {
+  .app-title {
+    font-size: 1.5rem; /* Reduce the title size */
+  }
+
+  .app-icon {
+    font-size: 2rem; /* Reduce the icon size */
+  }
+
+  .filter-buttons {
+    flex-direction: column; /* Stack filter buttons vertically */
+    gap: 0.5rem;
+  }
+
+  .filter-button {
+    width: 100%; /* Make filter buttons take full width */
+    text-align: center;
+  }
+}
