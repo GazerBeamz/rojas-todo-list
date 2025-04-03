@@ -10,13 +10,12 @@ function App() {
     const savedTodos = localStorage.getItem('todos');
     return savedTodos ? JSON.parse(savedTodos) : [];
   });
-  const [filter, setFilter] = useState('all'); // Add filter state
+  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
-  // Check for overdue tasks every minute
   useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date();
@@ -28,60 +27,10 @@ function App() {
           return todo;
         })
       );
-    }, 1000); // Check every 60 seconds
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date();
-      setTodos((prevTodos) =>
-        prevTodos.map((todo) => {
-          // Check if the task is overdue and not completed
-          if (!todo.completed && todo.deadline && new Date(todo.deadline) < now) {
-            return { ...todo, uncompleted: true }; // Mark as uncompleted
-          }
-          return todo;
-        })
-      );
     }, 1000); // Check every second for testing purposes
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const timers = [];
-
-    todos.forEach((todo) => {
-      if (!todo.completed && todo.deadline) {
-        const timeUntilDeadline = new Date(todo.deadline) - new Date();
-        if (timeUntilDeadline > 0) {
-          // Schedule a timeout for when the task becomes overdue
-          const timer = setTimeout(() => {
-            setTodos((prevTodos) =>
-              prevTodos.map((t) =>
-                t.id === todo.id ? { ...t, uncompleted: true } : t
-              )
-            );
-          }, timeUntilDeadline);
-
-          timers.push(timer);
-        } else {
-          // If already overdue, mark as uncompleted immediately
-          setTodos((prevTodos) =>
-            prevTodos.map((t) =>
-              t.id === todo.id ? { ...t, uncompleted: true } : t
-            )
-          );
-        }
-      }
-    });
-
-    return () => {
-      // Clear all timeouts on cleanup
-      timers.forEach((timer) => clearTimeout(timer));
-    };
-  }, [todos]);
-  
   const addTodo = (text, deadline) => {
     setTodos([
       ...todos,
@@ -89,8 +38,8 @@ function App() {
         id: Date.now(),
         text,
         completed: false,
-        uncompleted: false, // Add uncompleted state
-        deadline: deadline || null, // Deadline is optional
+        uncompleted: false,
+        deadline: deadline || null,
       },
     ]);
   };
@@ -127,7 +76,6 @@ function App() {
     );
   };
 
-  // Filter todos based on the selected filter
   const filteredTodos = todos.filter((todo) => {
     if (filter === 'completed') return todo.completed;
     if (filter === 'uncompleted') return todo.uncompleted;
@@ -150,15 +98,13 @@ function App() {
             All
           </button>
           <button
-            className={`filter-button ${filter === 'uncompleted' ? 'active' : ''
-              }`}
+            className={`filter-button ${filter === 'uncompleted' ? 'active' : ''}`}
             onClick={() => setFilter('uncompleted')}
           >
             Uncomplete Task
           </button>
           <button
-            className={`filter-button ${filter === 'completed' ? 'active' : ''
-              }`}
+            className={`filter-button ${filter === 'completed' ? 'active' : ''}`}
             onClick={() => setFilter('completed')}
           >
             Completed

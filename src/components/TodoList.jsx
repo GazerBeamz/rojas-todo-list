@@ -32,44 +32,59 @@ const TodoList = ({ todos, deleteTodo, toggleComplete, editTodo }) => {
 
   return (
     <>
-      {/* Add conditional rendering for "No todo lists yet" */}
       {todos.length === 0 && <p className="no-todos">No todo lists yet</p>}
 
       <ul className="todo-list">
-        {todos.map((todo) => (
-          <li
-            key={todo.id}
-            className={`todo-item ${todo.completed ? 'completed' : ''}`}
-            onClick={() => toggleComplete(todo.id)}
-          >
-            <span className="todo-text">{todo.text}</span>
-            {todo.deadline && (
-              <span className="todo-deadline">
-                <strong>Deadline:</strong> {new Date(todo.deadline).toLocaleString()}
-              </span>
-            )}
-            <div className="todo-actions">
-              <button
-                className="action-button edit"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  openModal(todo);
-                }}
-              >
-                <FontAwesomeIcon icon={faEdit} />
-              </button>
-              <button
-                className="action-button delete"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  deleteTodo(todo.id);
-                }}
-              >
-                <FontAwesomeIcon icon={faTrash} />
-              </button>
-            </div>
-          </li>
-        ))}
+        {todos.map((todo) => {
+          const currentTime = new Date();
+          const deadline = new Date(todo.deadline);
+          const isOverdue = !todo.completed && deadline < currentTime;
+
+          return (
+            <li
+              key={todo.id}
+              className={`todo-item ${todo.completed ? 'completed' : ''}`}
+              onClick={() => toggleComplete(todo.id)}
+            >
+              <span className="todo-text">{todo.text}</span>
+              {todo.deadline && (
+                <span className="todo-deadline">
+                  {isOverdue ? (
+                    <span className="overdue-label">Overdue</span>
+                  ) : (
+                    <>
+                      <strong>Deadline:</strong> {deadline.toLocaleString()}
+                    </>
+                  )}
+                </span>
+              )}
+              <div className="todo-actions">
+                {/* Only show the Edit button if the task is not completed or uncompleted */}
+                {!todo.completed && !todo.uncompleted && (
+                  <button
+                    className="action-button edit"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openModal(todo);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faEdit} />
+                  </button>
+                )}
+                {/* Always show the Delete button */}
+                <button
+                  className="action-button delete"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deleteTodo(todo.id);
+                  }}
+                >
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
+              </div>
+            </li>
+          );
+        })}
       </ul>
       <Modal
         isOpen={isModalOpen}
