@@ -1,27 +1,34 @@
- 
 import React, { useState } from 'react';
 
 const TodoForm = ({ addTodo }) => {
   const [value, setValue] = useState('');
+  const [deadline, setDeadline] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!value.trim()) return;
-    addTodo(value);
+    if (!value) return;
+    addTodo(value, deadline);
     setValue('');
+    setDeadline('');
   };
 
   return (
     <form className="todo-form" onSubmit={handleSubmit}>
       <input
         type="text"
+        className="todo-input"
+        placeholder="Let's do something"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder="Add a new task..."
-        className="todo-input"
+      />
+      <input
+        type="datetime-local"
+        className="todo-deadline"
+        value={deadline}
+        onChange={(e) => setDeadline(e.target.value)}
       />
       <button type="submit" className="todo-button">
-        <i className="fas fa-plus"></i>
+        Add
       </button>
     </form>
   );

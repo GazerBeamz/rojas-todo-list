@@ -1,8 +1,7 @@
-// filepath: src/components/Modal.jsx
 import React from 'react';
-import '../styles/Modal.css'; // Add styles for the modal
+import '../styles/Modal.css';
 
-const Modal = ({ isOpen, onClose, onSave, value, setValue }) => {
+const Modal = ({ isOpen, onClose, onSave, value, setValue, deadline, setDeadline }) => {
   if (!isOpen) return null;
 
   return (
@@ -13,6 +12,13 @@ const Modal = ({ isOpen, onClose, onSave, value, setValue }) => {
           type="text"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          className="modal-input"
+          placeholder="Edit task"
+        />
+        <input
+          type="datetime-local"
+          value={deadline}
+          onChange={(e) => setDeadline(e.target.value)}
           className="modal-input"
         />
         <div className="modal-actions">

@@ -1,39 +1,57 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const TodoItem = ({ todo, deleteTodo, toggleComplete, editTodo }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editText, setEditText] = useState(todo.text);
-
-  const handleEdit = () => {
-    editTodo(todo.id, editText);
-    setIsEditing(false);
-  };
-
+const TodoItem = ({ todo, toggleComplete, deleteTodo, editTodo, moveToAll }) => {
   return (
-    <div className={`todo-item ${todo.completed ? 'completed' : ''}`} onClick={() => toggleComplete(todo.id)}>
+    <div
+      className={`todo-item ${todo.completed ? 'completed' : ''}`}
+      onClick={() => !todo.uncompleted && toggleComplete(todo.id)} // Only toggle if not uncompleted
+    >
       <div className="todo-content">
         <span className="todo-text">{todo.text}</span>
+        {todo.deadline && (
+          <span
+            className={`todo-deadline ${
+              todo.uncompleted ? 'overdue-label' : ''
+            }`}
+            onClick={(e) => {
+              if (todo.uncompleted) {
+                e.stopPropagation(); // Prevent toggling complete
+                moveToAll(todo.id); // Move back to "All"
+              }
+            }}
+          >
+            {todo.uncompleted ? (
+              <strong>Overdue</strong> // Display "Overdue" for uncompleted tasks
+            ) : (
+              <>
+                <strong>Deadline:</strong> {new Date(todo.deadline).toLocaleString()}
+              </>
+            )}
+          </span>
+        )}
       </div>
-      <div className="todo-actions">
-        <button 
-          onClick={(e) => {
-            e.stopPropagation();
-            editTodo(todo.id, prompt('Edit your todo:', todo.text));
-          }} 
-          className="edit-button"
-        >
-          Edit
-        </button>
-        <button 
-          onClick={(e) => {
-            e.stopPropagation();
-            deleteTodo(todo.id);
-          }} 
-          className="delete-button"
-        >
-          Delete
-        </button>
-      </div>
+      {!todo.uncompleted && (
+        <div className="todo-actions">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              editTodo(todo.id, todo.text, todo.deadline);
+            }}
+            className="edit-button"
+          >
+            <i className="fas fa-edit"></i>
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteTodo(todo.id);
+            }}
+            className="delete-button"
+          >
+            <i className="fas fa-trash"></i>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

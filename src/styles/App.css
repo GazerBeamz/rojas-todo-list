@@ -2,26 +2,30 @@
   --primary-color: #4a90e2;
   --secondary-color: #357ABD;
   --accent-color: #50E3C2;
-  --background-color: #f9f9f9;
+  --background-gradient: linear-gradient(135deg, #7c59a0, #2575fc);
   --card-background: #ffffff;
   --text-color: #333;
   --white: #ffffff;
-  --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  --shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   --transition: all 0.3s ease;
-  --border-radius: 12px;
+  --border-radius: 16px;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
-  background-color: var(--background-color);
+  background: var(--background-gradient); /* Gradient background */
   color: var(--text-color);
   line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .app {
@@ -35,11 +39,23 @@ body {
 .container {
   width: 100%;
   max-width: 600px;
-  background-color: var(--card-background);
+  background-color: var(--card-background); /* Card background */
   border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow); /* Modern shadow */
   padding: 2rem;
   overflow: hidden;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .app-title {
@@ -174,7 +190,7 @@ body {
 .filter-button {
   padding: 0.5rem 1rem;
   border: 1px solid var(--primary-color);
-  border-radius: var(--border-radius);
+  border-radius: 20px;
   background-color: var(--white);
   color: var(--primary-color);
   cursor: pointer;
@@ -191,46 +207,65 @@ body {
   color: var(--white);
 }
 
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+.todo-deadline {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 0.5rem;
+  display: block;
 }
 
-.modal-content {
-  background: var(--card-background);
-  padding: 2rem;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
+.due-label {
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
-.modal-input {
-  width: 100%;
+.due-label:hover {
+  color: darkred;
+}
+
+.todo-form .todo-deadline {
+  flex: 1;
   padding: 0.75rem;
-  margin-bottom: 1rem;
   border: 1px solid var(--accent-color);
   border-radius: var(--border-radius);
   font-size: 1rem;
+  outline: none;
+  transition: var(--transition);
+  margin-left: 0.5rem;
 }
 
-.modal-actions {
+.todo-form .todo-deadline:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 5px var(--primary-color);
+}
+
+.todo-edit {
   display: flex;
-  justify-content: space-between;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.modal-button {
-  padding: 0.75rem 1.5rem;
+.edit-input,
+.edit-deadline {
+  padding: 0.75rem;
+  border: 1px solid var(--accent-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  outline: none;
+  transition: var(--transition);
+}
+
+.edit-input:focus,
+.edit-deadline:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 5px var(--primary-color);
+}
+
+.save-button,
+.cancel-button {
+  padding: 0.5rem 1rem;
   border: none;
   border-radius: var(--border-radius);
   cursor: pointer;
@@ -238,22 +273,41 @@ body {
   transition: var(--transition);
 }
 
-.modal-button.save {
-  background: var(--primary-color);
+.save-button {
+  background-color: var(--primary-color);
   color: var(--white);
 }
 
-.modal-button.save:hover {
-  background: var(--secondary-color);
+.save-button:hover {
+  background-color: var(--secondary-color);
 }
 
-.modal-button.cancel {
-  background: #e57373;
+.cancel-button {
+  background-color: #e57373;
   color: var(--white);
 }
 
-.modal-button.cancel:hover {
-  background: #d32f2f;
+.cancel-button:hover {
+  background-color: #d32f2f;
+}
+
+.overdue-label {
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.overdue-label:hover {
+  color: darkred;
+}
+
+.no-todos {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #888;
+  margin-top: 1rem;
+  font-style: italic;
 }
 
 @media (max-width: 600px) {
