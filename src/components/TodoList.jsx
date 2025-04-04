@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Modal from './Modal';
 
-const TodoList = ({ todos, deleteTodo, toggleComplete, editTodo, filter }) => {
+const TodoList = ({ todos, deleteTodo, toggleComplete, editTodo, filter, clearCompleted }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentTodo, setCurrentTodo] = useState(null);
   const [editText, setEditText] = useState('');
@@ -30,7 +30,6 @@ const TodoList = ({ todos, deleteTodo, toggleComplete, editTodo, filter }) => {
     closeModal();
   };
 
-  // Determine the message based on the filter
   const getNoTasksMessage = () => {
     switch (filter) {
       case 'all':
@@ -48,6 +47,15 @@ const TodoList = ({ todos, deleteTodo, toggleComplete, editTodo, filter }) => {
     <>
       {todos.length === 0 && (
         <p className="no-todos">{getNoTasksMessage()}</p>
+      )}
+
+      {/* Show the Clear button only in the Completed filter and if there are tasks */}
+      {filter === 'completed' && todos.length > 0 && (
+        <div className="clear-button-container">
+          <button className="clear-button" onClick={clearCompleted}>
+            Clear Task
+          </button>
+        </div>
       )}
 
       <ul className="todo-list">

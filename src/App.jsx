@@ -84,6 +84,11 @@ function App() {
     );
   };
 
+  // Add a function to clear all completed tasks
+  const clearCompleted = () => {
+    setTodos(todos.filter((todo) => !todo.completed));
+  };
+
   const filteredTodos = todos.filter((todo) => {
     if (filter === 'completed') return todo.completed;
     if (filter === 'uncompleted') return todo.uncompleted && !todo.completed;
@@ -128,7 +133,8 @@ function App() {
           toggleComplete={toggleComplete}
           editTodo={editTodo}
           moveToAll={moveToAll}
-          filter={filter} // Pass the filter prop
+          filter={filter}
+          clearCompleted={clearCompleted} // Pass the clearCompleted function
         />
       </div>
     </div>

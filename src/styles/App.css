@@ -355,6 +355,50 @@ body {
   font-style: italic;
 }
 
+/* Add these styles to your existing App.css */
+
+/* Clear Button Container */
+.clear-button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Clear Button Styling */
+.clear-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 20px;
+  background-color: #e57373; /* Red background to indicate deletion */
+  color: var(--white);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+}
+
+.clear-button:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Ensure the clear button scales on tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .clear-button {
+    font-size: 1.2rem;
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+/* Ensure the clear button scales on smaller screens */
+@media (max-width: 768px) {
+  .clear-button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 /* Media Query for Tablets (iPad Air, iPad Pro, etc.) */
 @media (min-width: 769px) and (max-width: 1024px) {
   .container {
