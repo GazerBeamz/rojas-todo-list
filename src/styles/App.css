@@ -468,37 +468,30 @@ body {
     text-align: center;
   }
 
-  /* Adjust todo-item to keep task text and actions in a row */
+  /* Keep todo-item as a horizontal flex container */
   .todo-item {
-    flex-direction: column; /* Stack elements vertically */
-    align-items: flex-start; /* Align items to the left */
+    flex-direction: row; /* Keep items in a row */
+    align-items: center; /* Vertically center the content */
     padding: 0.8rem;
-  }
-
-  /* Create a wrapper for task text and actions to keep them in a row */
-  .todo-item::before {
-    content: '';
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
+    flex-wrap: nowrap; /* Prevent wrapping */
   }
 
   .todo-text {
     flex: 1; /* Take up remaining space */
-    margin-right: 0.5rem; /* Small margin to separate from actions */
+    margin-right: 0.5rem; /* Small margin to separate from deadline */
     margin-bottom: 0; /* Remove bottom margin */
   }
 
   .todo-deadline {
-    width: 100%; /* Make deadline take full width on the next line */
-    margin: 0.5rem 0 0 0; /* Add some top margin for spacing */
+    flex: none; /* Prevent deadline from stretching */
+    margin: 0 0.5rem; /* Small margin on both sides */
+    white-space: nowrap; /* Prevent "OVERDUE" or deadline from wrapping */
   }
 
   .todo-actions {
+    flex: none; /* Prevent actions from stretching */
     justify-content: flex-end; /* Align buttons to the right */
     gap: 0.5rem; /* Smaller gap for smaller screens */
-    flex-shrink: 0; /* Prevent shrinking to ensure buttons are visible */
   }
 
   .action-button {
@@ -506,23 +499,13 @@ body {
     padding: 0.3rem; /* Smaller padding */
   }
 
+  .overdue-label {
+    font-size: 1rem; /* Smaller font size for smaller screens */
+  }
+
   .clear-button {
     width: 100%;
     text-align: center;
-  }
-
-  /* Ensure the task text and actions are in a row */
-  .todo-item > .todo-text,
-  .todo-item > .todo-actions {
-    display: inline-block; /* Treat as inline-block to stay in a row */
-  }
-
-  .todo-item > .todo-text {
-    flex: 1; /* Take up remaining space */
-  }
-
-  .todo-item > .todo-actions {
-    flex: none; /* Prevent actions from stretching */
   }
 }
 
@@ -551,5 +534,25 @@ body {
     flex: 1;
     min-width: 100px;
     text-align: center;
+  }
+
+  /* Further adjustments for very small screens */
+  .todo-text {
+    font-size: 0.9rem; /* Slightly smaller text */
+    margin-right: 0.3rem; /* Even smaller margin */
+  }
+
+  .todo-deadline {
+    font-size: 0.8rem; /* Smaller deadline text */
+    margin: 0 0.3rem; /* Even smaller margin */
+  }
+
+  .overdue-label {
+    font-size: 0.9rem; /* Smaller overdue label */
+  }
+
+  .action-button {
+    font-size: 0.9rem; /* Smaller icons */
+    padding: 0.2rem; /* Even smaller padding */
   }
 }
