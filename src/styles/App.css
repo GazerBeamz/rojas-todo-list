@@ -40,7 +40,7 @@ body {
 
 .container {
   width: 100%;
-  max-width: 600px; /* Default max-width for smaller screens */
+  max-width: 600px;
   background-color: var(--card-background);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
@@ -355,8 +355,6 @@ body {
   font-style: italic;
 }
 
-/* Add these styles to your existing App.css */
-
 /* Clear Button Container */
 .clear-button-container {
   display: flex;
@@ -369,7 +367,7 @@ body {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 20px;
-  background-color: #e57373; /* Red background to indicate deletion */
+  background-color: #e57373;
   color: var(--white);
   cursor: pointer;
   transition: var(--transition);
@@ -378,88 +376,77 @@ body {
 }
 
 .clear-button:hover {
-  background-color: #d32f2f; /* Darker red on hover */
+  background-color: #d32f2f;
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* Ensure the clear button scales on tablets */
+/* Media Query for Tablets (iPad Air, iPad Pro, etc.) */
 @media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    max-width: 800px;
+    padding: 2.5rem;
+  }
+
+  .app-title {
+    font-size: 2.5rem;
+  }
+
+  .app-icon {
+    font-size: 3rem;
+  }
+
+  .todo-form {
+    gap: 0.5rem;
+  }
+
+  .todo-input,
+  .todo-deadline {
+    font-size: 1.2rem;
+    padding: 0.75rem;
+  }
+
+  .todo-button {
+    font-size: 1.2rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .filter-buttons {
+    gap: 1.5rem;
+  }
+
+  .filter-button {
+    font-size: 1.2rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .todo-item {
+    padding: 1.5rem;
+  }
+
+  .todo-text {
+    font-size: 1.2rem;
+  }
+
+  .todo-deadline {
+    font-size: 1rem;
+  }
+
+  .overdue-label {
+    font-size: 1.5rem;
+  }
+
+  .action-button {
+    font-size: 1.5rem;
+  }
+
   .clear-button {
     font-size: 1.2rem;
     padding: 0.75rem 1.5rem;
   }
 }
 
-/* Ensure the clear button scales on smaller screens */
-@media (max-width: 768px) {
-  .clear-button {
-    width: 100%;
-    text-align: center;
-  }
-}
-
-/* Media Query for Tablets (iPad Air, iPad Pro, etc.) */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .container {
-    max-width: 800px; /* Increase max-width for tablets */
-    padding: 2.5rem; /* More padding for better spacing */
-  }
-
-  .app-title {
-    font-size: 2.5rem; /* Larger title */
-  }
-
-  .app-icon {
-    font-size: 3rem; /* Larger icon */
-  }
-
-  .todo-form {
-    gap: 0.5rem; /* Slightly more spacing between form elements */
-  }
-
-  .todo-input,
-  .todo-deadline {
-    font-size: 1.2rem; /* Larger input text */
-    padding: 0.75rem; /* More padding for inputs */
-  }
-
-  .todo-button {
-    font-size: 1.2rem; /* Larger button text */
-    padding: 0.75rem 1.5rem; /* Larger button */
-  }
-
-  .filter-buttons {
-    gap: 1.5rem; /* More spacing between filter buttons */
-  }
-
-  .filter-button {
-    font-size: 1.2rem; /* Larger filter button text */
-    padding: 0.75rem 1.5rem; /* Larger filter buttons */
-  }
-
-  .todo-item {
-    padding: 1.5rem; /* More padding for todo items */
-  }
-
-  .todo-text {
-    font-size: 1.2rem; /* Larger task text */
-  }
-
-  .todo-deadline {
-    font-size: 1rem; /* Slightly larger deadline text */
-  }
-
-  .overdue-label {
-    font-size: 1.5rem; /* Larger overdue label */
-  }
-
-  .action-button {
-    font-size: 1.5rem; /* Larger action buttons */
-  }
-}
-
-/* General Styles for Smaller Screens */
+/* General Styles for Smaller Screens (below 768px) */
 @media (max-width: 768px) {
   .container {
     padding: 1rem;
@@ -481,27 +468,65 @@ body {
     text-align: center;
   }
 
+  /* Adjust todo-item to keep task text and actions in a row */
   .todo-item {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start; /* Align items to the left */
     padding: 0.8rem;
   }
 
+  /* Create a wrapper for task text and actions to keep them in a row */
+  .todo-item::before {
+    content: '';
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   .todo-text {
-    margin-bottom: 0.5rem;
+    flex: 1; /* Take up remaining space */
+    margin-right: 0.5rem; /* Small margin to separate from actions */
+    margin-bottom: 0; /* Remove bottom margin */
   }
 
   .todo-deadline {
-    margin: 0;
+    width: 100%; /* Make deadline take full width on the next line */
+    margin: 0.5rem 0 0 0; /* Add some top margin for spacing */
   }
 
   .todo-actions {
-    justify-content: flex-start;
-    gap: 1rem;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 0.5rem; /* Smaller gap for smaller screens */
+    flex-shrink: 0; /* Prevent shrinking to ensure buttons are visible */
+  }
+
+  .action-button {
+    font-size: 1rem; /* Slightly smaller icons for smaller screens */
+    padding: 0.3rem; /* Smaller padding */
+  }
+
+  .clear-button {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Ensure the task text and actions are in a row */
+  .todo-item > .todo-text,
+  .todo-item > .todo-actions {
+    display: inline-block; /* Treat as inline-block to stay in a row */
+  }
+
+  .todo-item > .todo-text {
+    flex: 1; /* Take up remaining space */
+  }
+
+  .todo-item > .todo-actions {
+    flex: none; /* Prevent actions from stretching */
   }
 }
 
-/* Styles for Extra Small Screens */
+/* Styles for Extra Small Screens (below 480px) */
 @media (max-width: 480px) {
   .app-title {
     font-size: 1.5rem;
@@ -511,13 +536,20 @@ body {
     font-size: 2rem;
   }
 
+  /* Keep filter buttons horizontal */
   .filter-buttons {
-    flex-direction: column;
     gap: 0.5rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 0.5rem 0;
   }
 
   .filter-button {
-    width: 100%;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+    flex: 1;
+    min-width: 100px;
     text-align: center;
   }
 }
