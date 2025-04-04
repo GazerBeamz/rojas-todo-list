@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListCheck } from '@fortawesome/free-solid-svg-icons';
 import './styles/App.css';
 
-
 function App() {
   const [todos, setTodos] = useState(() => {
     const savedTodos = localStorage.getItem('todos');
@@ -23,12 +22,12 @@ function App() {
       setTodos((prevTodos) =>
         prevTodos.map((todo) => {
           if (!todo.completed && todo.deadline && new Date(todo.deadline) < now) {
-            return { ...todo, uncompleted: true }; // Mark as uncompleted if overdue
+            return { ...todo, uncompleted: true };
           }
           return todo;
         })
       );
-    }, 1000); // Check every second for testing purposes
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -51,18 +50,23 @@ function App() {
 
   const toggleComplete = (id) => {
     setTodos(
-      todos.map((todo) =>
-        todo.id === id
-          ? {
-              ...todo,
-              completed: !todo.completed,
-              uncompleted: false,
-              overdue: todo.deadline && new Date(todo.deadline) < new Date(), // Keep the overdue flag
-            }
-          : todo
-      )
+      todos.map((todo) => {
+        if (todo.id === id) {
+          // If the task is completed and overdue, don't toggle it back
+          if (todo.completed && todo.uncompleted) {
+            return todo; // Do nothing, keep it completed
+          }
+          // Otherwise, toggle the completed status and retain uncompleted if overdue
+          return {
+            ...todo,
+            completed: !todo.completed,
+            uncompleted: todo.uncompleted && !todo.completed,
+          };
+        }
+        return todo;
+      })
     );
-  };;
+  };
 
   const editTodo = (id, newText, newDeadline) => {
     setTodos(
@@ -83,9 +87,9 @@ function App() {
   };
 
   const filteredTodos = todos.filter((todo) => {
-    if (filter === 'completed') return todo.completed;
-    if (filter === 'uncompleted') return todo.uncompleted;
-    if (filter === 'all') return !todo.completed && !todo.uncompleted;
+    if (filter === 'completed') return todo.completed; // Show all completed tasks
+    if (filter === 'uncompleted') return todo.uncompleted && !todo.completed; // Only uncompleted and not completed
+    if (filter === 'all') return !todo.completed && !todo.uncompleted; // Only active tasks
     return true;
   });
 

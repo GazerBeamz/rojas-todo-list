@@ -38,7 +38,7 @@ const TodoList = ({ todos, deleteTodo, toggleComplete, editTodo }) => {
         {todos.map((todo) => {
           const currentTime = new Date();
           const deadline = new Date(todo.deadline);
-          const isOverdue = !todo.completed && deadline < currentTime;
+          const isOverdue = todo.deadline && deadline < currentTime && todo.uncompleted;
 
           return (
             <li
@@ -49,16 +49,29 @@ const TodoList = ({ todos, deleteTodo, toggleComplete, editTodo }) => {
               <span className="todo-text">{todo.text}</span>
               {todo.deadline && (
                 <span className="todo-deadline">
-                  {todo.completed && todo.overdue ? (
+                  {isOverdue && !todo.completed ? (
                     <span className="overdue-label">Overdue</span>
+                  ) : todo.completed && todo.uncompleted ? (
+                    <span className="overdue-label">Overdue</span> // Show "Overdue" for completed overdue tasks
                   ) : (
                     <>
-                      <strong>Deadline:</strong> {new Date(todo.deadline).toLocaleString()}
+                      <strong>Deadline:</strong> {deadline.toLocaleString()}
                     </>
                   )}
                 </span>
               )}
               <div className="todo-actions">
+                {!todo.completed && !todo.uncompleted && (
+                  <button
+                    className="action-button edit"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openModal(todo);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faEdit} />
+                  </button>
+                )}
                 <button
                   className="action-button delete"
                   onClick={(e) => {
