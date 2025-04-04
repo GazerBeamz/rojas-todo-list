@@ -195,6 +195,13 @@ body {
   text-decoration: none;
 }
 
+.todo-item.completed .overdue-label {
+  color: red;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
 /* Action Buttons Styling */
 .todo-actions {
   display: flex;

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListCheck } from '@fortawesome/free-solid-svg-icons';
 import './styles/App.css';
 
+
 function App() {
   const [todos, setTodos] = useState(() => {
     const savedTodos = localStorage.getItem('todos');
@@ -52,11 +53,16 @@ function App() {
     setTodos(
       todos.map((todo) =>
         todo.id === id
-          ? { ...todo, completed: !todo.completed, uncompleted: false }
+          ? {
+              ...todo,
+              completed: !todo.completed,
+              uncompleted: false,
+              overdue: todo.deadline && new Date(todo.deadline) < new Date(), // Keep the overdue flag
+            }
           : todo
       )
     );
-  };
+  };;
 
   const editTodo = (id, newText, newDeadline) => {
     setTodos(

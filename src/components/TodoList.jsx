@@ -49,29 +49,16 @@ const TodoList = ({ todos, deleteTodo, toggleComplete, editTodo }) => {
               <span className="todo-text">{todo.text}</span>
               {todo.deadline && (
                 <span className="todo-deadline">
-                  {isOverdue ? (
+                  {todo.completed && todo.overdue ? (
                     <span className="overdue-label">Overdue</span>
                   ) : (
                     <>
-                      <strong>Deadline:</strong> {deadline.toLocaleString()}
+                      <strong>Deadline:</strong> {new Date(todo.deadline).toLocaleString()}
                     </>
                   )}
                 </span>
               )}
               <div className="todo-actions">
-                {/* Only show the Edit button if the task is not completed or uncompleted */}
-                {!todo.completed && !todo.uncompleted && (
-                  <button
-                    className="action-button edit"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      openModal(todo);
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faEdit} />
-                  </button>
-                )}
-                {/* Always show the Delete button */}
                 <button
                   className="action-button delete"
                   onClick={(e) => {
