@@ -52,11 +52,9 @@ function App() {
     setTodos(
       todos.map((todo) => {
         if (todo.id === id) {
-          // If the task is completed and overdue, don't toggle it back
           if (todo.completed && todo.uncompleted) {
-            return todo; // Do nothing, keep it completed
+            return todo;
           }
-          // Otherwise, toggle the completed status and retain uncompleted if overdue
           return {
             ...todo,
             completed: !todo.completed,
@@ -87,11 +85,16 @@ function App() {
   };
 
   const filteredTodos = todos.filter((todo) => {
-    if (filter === 'completed') return todo.completed; // Show all completed tasks
-    if (filter === 'uncompleted') return todo.uncompleted && !todo.completed; // Only uncompleted and not completed
-    if (filter === 'all') return !todo.completed && !todo.uncompleted; // Only active tasks
+    if (filter === 'completed') return todo.completed;
+    if (filter === 'uncompleted') return todo.uncompleted && !todo.completed;
+    if (filter === 'all') return !todo.completed && !todo.uncompleted;
     return true;
   });
+
+  // Calculate task counts
+  const allCount = todos.filter((todo) => !todo.completed && !todo.uncompleted).length;
+  const uncompletedCount = todos.filter((todo) => todo.uncompleted && !todo.completed).length;
+  const completedCount = todos.filter((todo) => todo.completed).length;
 
   return (
     <div className="app">
@@ -105,19 +108,19 @@ function App() {
             className={`filter-button ${filter === 'all' ? 'active' : ''}`}
             onClick={() => setFilter('all')}
           >
-            All
+            All <span className="counter">{allCount}</span>
           </button>
           <button
             className={`filter-button ${filter === 'uncompleted' ? 'active' : ''}`}
             onClick={() => setFilter('uncompleted')}
           >
-            Uncomplete Task
+            Uncomplete Task <span className="counter">{uncompletedCount}</span>
           </button>
           <button
             className={`filter-button ${filter === 'completed' ? 'active' : ''}`}
             onClick={() => setFilter('completed')}
           >
-            Completed
+            Completed <span className="counter">{completedCount}</span>
           </button>
         </div>
         <TodoList
