@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Modal from './Modal';
 
-const TodoList = ({ todos, deleteTodo, toggleComplete, editTodo }) => {
+const TodoList = ({ todos, deleteTodo, toggleComplete, editTodo, filter }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentTodo, setCurrentTodo] = useState(null);
   const [editText, setEditText] = useState('');
@@ -30,9 +30,25 @@ const TodoList = ({ todos, deleteTodo, toggleComplete, editTodo }) => {
     closeModal();
   };
 
+  // Determine the message based on the filter
+  const getNoTasksMessage = () => {
+    switch (filter) {
+      case 'all':
+        return 'No Task';
+      case 'uncompleted':
+        return 'No Uncomplete task';
+      case 'completed':
+        return 'All tasks are complete';
+      default:
+        return 'No todo lists yet';
+    }
+  };
+
   return (
     <>
-      {todos.length === 0 && <p className="no-todos">No todo lists yet</p>}
+      {todos.length === 0 && (
+        <p className="no-todos">{getNoTasksMessage()}</p>
+      )}
 
       <ul className="todo-list">
         {todos.map((todo) => {
@@ -52,7 +68,7 @@ const TodoList = ({ todos, deleteTodo, toggleComplete, editTodo }) => {
                   {isOverdue && !todo.completed ? (
                     <span className="overdue-label">Overdue</span>
                   ) : todo.completed && todo.uncompleted ? (
-                    <span className="overdue-label">Overdue</span> // Show "Overdue" for completed overdue tasks
+                    <span className="overdue-label">Overdue</span>
                   ) : (
                     <>
                       <strong>Deadline:</strong> {deadline.toLocaleString()}

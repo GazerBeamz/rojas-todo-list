@@ -91,7 +91,6 @@ function App() {
     return true;
   });
 
-  // Calculate task counts
   const allCount = todos.filter((todo) => !todo.completed && !todo.uncompleted).length;
   const uncompletedCount = todos.filter((todo) => todo.uncompleted && !todo.completed).length;
   const completedCount = todos.filter((todo) => todo.completed).length;
@@ -108,19 +107,19 @@ function App() {
             className={`filter-button ${filter === 'all' ? 'active' : ''}`}
             onClick={() => setFilter('all')}
           >
-            All <span className="counter">{allCount}</span>
+            All ({allCount})
           </button>
           <button
             className={`filter-button ${filter === 'uncompleted' ? 'active' : ''}`}
             onClick={() => setFilter('uncompleted')}
           >
-            Uncomplete Task <span className="counter">{uncompletedCount}</span>
+            Uncomplete Task ({uncompletedCount})
           </button>
           <button
             className={`filter-button ${filter === 'completed' ? 'active' : ''}`}
             onClick={() => setFilter('completed')}
           >
-            Completed <span className="counter">{completedCount}</span>
+            Completed ({completedCount})
           </button>
         </div>
         <TodoList
@@ -129,6 +128,7 @@ function App() {
           toggleComplete={toggleComplete}
           editTodo={editTodo}
           moveToAll={moveToAll}
+          filter={filter} // Pass the filter prop
         />
       </div>
     </div>

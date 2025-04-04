@@ -22,7 +22,6 @@
 
 body {
   background: var(--background-gradient);
-  /* Gradient background */
   color: var(--text-color);
   line-height: 1.6;
   min-height: 100vh;
@@ -41,12 +40,10 @@ body {
 
 .container {
   width: 100%;
-  max-width: 600px;
+  max-width: 600px; /* Default max-width for smaller screens */
   background-color: var(--card-background);
-  /* Card background */
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
-  /* Modern shadow */
   padding: 2rem;
   overflow: hidden;
   animation: fadeIn 0.5s ease-in-out;
@@ -57,7 +54,6 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -83,34 +79,27 @@ body {
 .todo-form {
   display: flex;
   align-items: center;
-  /* Align items vertically */
   gap: 0.3rem;
-  /* Add spacing between elements */
   margin-bottom: 1rem;
 }
 
 /* Ensure both input fields have the same width and style */
 .todo-input {
   flex: 2;
-  /* Make the todo-input longer */
   padding: 0.5rem;
   border: 1px solid var(--accent-color);
   border-radius: var(--border-radius);
   font-size: 1rem;
-  /* Ensure consistent font size */
   outline: none;
   transition: var(--transition);
 }
 
 .todo-deadline {
   flex: 1;
-  /* Keep the deadline input smaller */
   padding: 0.5rem;
-  /* Match padding with todo-input */
   border: 1px solid var(--accent-color);
   border-radius: var(--border-radius);
   font-size: 1rem;
-  /* Ensure consistent font size */
   outline: none;
   text-align: center;
   transition: var(--transition);
@@ -132,12 +121,9 @@ body {
   border-radius: var(--border-radius);
   cursor: pointer;
   font-size: 1rem;
-  /* Match font size with inputs */
   transition: var(--transition);
   flex-shrink: 0;
-  /* Prevent the button from shrinking */
   margin-left: auto;
-  /* Push the button to the right */
 }
 
 .todo-button:hover {
@@ -157,40 +143,30 @@ body {
   align-items: center;
   padding: 1rem;
   border: none;
-  /* Remove the border */
   border-radius: var(--border-radius);
   margin-bottom: 1rem;
   background-color: var(--card-background);
-  /* Keep the card background */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  /* Add a subtle shadow */
   transition: var(--transition);
   cursor: pointer;
 }
 
 .todo-item:hover {
   transform: translateY(-2px);
-  /* Add a hover effect */
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-  /* Enhance the shadow on hover */
 }
 
 /* Completed Task Styling */
 .todo-item.completed {
   background-color: #e0f7fa;
-  /* Light blue background for completed tasks */
   color: #00796b;
-  /* Dark green text */
   text-decoration: line-through;
-  /* Strike-through for completed tasks */
 }
 
 /* Uncompleted Task Styling */
 .todo-item.uncompleted {
   background-color: #fff8e1;
-  /* Light yellow background for uncompleted tasks */
   color: #f57c00;
-  /* Orange text */
 }
 
 /* Task Text Styling */
@@ -198,7 +174,6 @@ body {
   flex: 1;
   margin-right: 1rem;
   font-family: 'Poppins', sans-serif;
-  /* Use Poppins font */
   font-size: 1rem;
   color: var(--text-color);
 }
@@ -242,22 +217,18 @@ body {
 
 .action-button.edit {
   color: #fbc02d;
-  /* Yellow color for edit */
 }
 
 .action-button.edit:hover {
   background-color: rgba(251, 192, 45, 0.2);
-  /* Light yellow background on hover */
 }
 
 .action-button.delete {
   color: #e57373;
-  /* Red color for delete */
 }
 
 .action-button.delete:hover {
   background-color: rgba(231, 76, 60, 0.1);
-  /* Light red background on hover */
 }
 
 /* Filter Buttons Styling */
@@ -271,14 +242,12 @@ body {
 .filter-button {
   padding: 0.5rem 1rem;
   border: none;
-  /* Remove the border */
   border-radius: 20px;
   background-color: var(--white);
   color: var(--primary-color);
   cursor: pointer;
   transition: var(--transition);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  /* Add a subtle shadow */
 }
 
 .filter-button.active {
@@ -290,9 +259,7 @@ body {
   background-color: var(--secondary-color);
   color: var(--white);
   transform: translateY(-2px);
-  /* Add a hover effect */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  /* Enhance the shadow on hover */
 }
 
 .due-label {
@@ -308,7 +275,6 @@ body {
 
 .todo-form .todo-deadline {
   flex: 1;
-  /* padding: 0.75rem; */
   border: 1px solid var(--accent-color);
   border-radius: var(--border-radius);
   font-size: 1rem;
@@ -331,7 +297,7 @@ body {
 .edit-input,
 .edit-deadline {
   padding: 0.75rem;
-  border: 1px solid var (--accent-color);
+  border: 1px solid var(--accent-color);
   border-radius: var(--border-radius);
   font-size: 1rem;
   outline: none;
@@ -378,9 +344,7 @@ body {
   cursor: pointer;
   text-decoration: none;
   font-size: 1.5rem;
-  /* Make the text bigger */
   text-transform: uppercase;
-  /* Optional: Make it uppercase */
 }
 
 .no-todos {
@@ -391,112 +355,105 @@ body {
   font-style: italic;
 }
 
-/* Add this to your existing App.css */
-
-/* Style the counter in filter buttons */
-.filter-button {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.3rem;
-  /* Space between text and count */
-}
-
-.filter-button span.counter {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  padding: 0.2rem 0.5rem;
-  font-size: 0.8rem;
-  color: inherit;
-}
-
-/* Ensure active button counter is readable */
-.filter-button.active span.counter {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-@media (max-width: 600px) {
+/* Media Query for Tablets (iPad Air, iPad Pro, etc.) */
+@media (min-width: 769px) and (max-width: 1024px) {
   .container {
-    padding: 1.5rem;
+    max-width: 800px; /* Increase max-width for tablets */
+    padding: 2.5rem; /* More padding for better spacing */
   }
 
   .app-title {
-    font-size: 1.75rem;
+    font-size: 2.5rem; /* Larger title */
   }
 
-  .todo-input {
-    font-size: 0.9rem;
+  .app-icon {
+    font-size: 3rem; /* Larger icon */
+  }
+
+  .todo-form {
+    gap: 0.5rem; /* Slightly more spacing between form elements */
+  }
+
+  .todo-input,
+  .todo-deadline {
+    font-size: 1.2rem; /* Larger input text */
+    padding: 0.75rem; /* More padding for inputs */
   }
 
   .todo-button {
-    font-size: 0.9rem;
+    font-size: 1.2rem; /* Larger button text */
+    padding: 0.75rem 1.5rem; /* Larger button */
+  }
+
+  .filter-buttons {
+    gap: 1.5rem; /* More spacing between filter buttons */
+  }
+
+  .filter-button {
+    font-size: 1.2rem; /* Larger filter button text */
+    padding: 0.75rem 1.5rem; /* Larger filter buttons */
   }
 
   .todo-item {
-    flex-direction: column;
-    align-items: flex-start;
+    padding: 1.5rem; /* More padding for todo items */
   }
 
-  .todo-actions {
-    margin-top: 0.5rem;
+  .todo-text {
+    font-size: 1.2rem; /* Larger task text */
+  }
+
+  .todo-deadline {
+    font-size: 1rem; /* Slightly larger deadline text */
+  }
+
+  .overdue-label {
+    font-size: 1.5rem; /* Larger overdue label */
+  }
+
+  .action-button {
+    font-size: 1.5rem; /* Larger action buttons */
   }
 }
 
 /* General Styles for Smaller Screens */
 @media (max-width: 768px) {
-
-  /* Adjust the container padding */
   .container {
     padding: 1rem;
   }
 
-  /* Stack the form inputs and button vertically */
   .todo-form {
     flex-direction: column;
-    /* Stack elements vertically */
     gap: 0.5rem;
-    /* Add spacing between elements */
   }
 
   .todo-input,
   .todo-deadline {
     flex: none;
-    /* Remove flex to allow full width */
     width: 100%;
-    /* Make inputs take full width */
   }
 
   .todo-button {
     width: 100%;
-    /* Make the button take full width */
     text-align: center;
   }
 
-  /* Adjust the to-do list items */
   .todo-item {
     flex-direction: column;
-    /* Stack content vertically */
     align-items: flex-start;
-    /* Align items to the left */
     padding: 0.8rem;
   }
 
   .todo-text {
     margin-bottom: 0.5rem;
-    /* Add spacing below the text */
   }
 
   .todo-deadline {
     margin: 0;
-    /* Remove extra margins */
   }
 
   .todo-actions {
     justify-content: flex-start;
-    /* Align actions to the left */
     gap: 1rem;
-    /* Add spacing between buttons */
   }
 }
 
@@ -504,23 +461,19 @@ body {
 @media (max-width: 480px) {
   .app-title {
     font-size: 1.5rem;
-    /* Reduce the title size */
   }
 
   .app-icon {
     font-size: 2rem;
-    /* Reduce the icon size */
   }
 
   .filter-buttons {
     flex-direction: column;
-    /* Stack filter buttons vertically */
     gap: 0.5rem;
   }
 
   .filter-button {
     width: 100%;
-    /* Make filter buttons take full width */
     text-align: center;
   }
 }
