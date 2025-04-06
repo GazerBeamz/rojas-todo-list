@@ -104,7 +104,7 @@ function App() {
     <div className="app">
       <div className="container">
         <h1 className="app-title">
-          <FontAwesomeIcon icon={faListCheck} className="app-icon" /> Todo List
+          <FontAwesomeIcon icon={faListCheck} className="app-icon" /> MyTodo List
         </h1>
         <TodoForm addTodo={addTodo} />
         <div className="filter-buttons">
