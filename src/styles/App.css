@@ -468,35 +468,51 @@ body {
     text-align: center;
   }
 
-  /* Keep todo-item as a horizontal flex container */
+  /* Ensure todo-item layout is correct */
   .todo-item {
     flex-direction: row; /* Keep items in a row */
     align-items: center; /* Vertically center the content */
     padding: 0.8rem;
     flex-wrap: nowrap; /* Prevent wrapping */
+    justify-content: space-between; /* Ensure actions stay on the right */
+    min-height: 50px; /* Ensure enough height for content */
   }
 
   .todo-text {
     flex: 1; /* Take up remaining space */
     margin-right: 0.5rem; /* Small margin to separate from deadline */
     margin-bottom: 0; /* Remove bottom margin */
+    overflow: hidden; /* Prevent text overflow */
+    text-overflow: ellipsis; /* Add ellipsis for long text */
+    white-space: nowrap; /* Prevent text wrapping */
+    max-width: 40%; /* Limit the width of the text to ensure space for other elements */
   }
 
   .todo-deadline {
     flex: none; /* Prevent deadline from stretching */
     margin: 0 0.5rem; /* Small margin on both sides */
     white-space: nowrap; /* Prevent "OVERDUE" or deadline from wrapping */
+    font-size: 0.8rem; /* Smaller font size to fit better */
+    max-width: 30%; /* Limit the width of the deadline to ensure space for actions */
+    overflow: hidden; /* Prevent overflow */
+    text-overflow: ellipsis; /* Add ellipsis for long deadlines */
   }
 
   .todo-actions {
     flex: none; /* Prevent actions from stretching */
     justify-content: flex-end; /* Align buttons to the right */
     gap: 0.5rem; /* Smaller gap for smaller screens */
+    display: flex !important; /* Force the actions to be visible */
+    align-items: center; /* Vertically center the buttons */
+    min-width: 40px; /* Ensure enough space for the delete button */
   }
 
   .action-button {
     font-size: 1rem; /* Slightly smaller icons for smaller screens */
     padding: 0.3rem; /* Smaller padding */
+    display: flex; /* Ensure the button is visible */
+    align-items: center;
+    justify-content: center;
   }
 
   .overdue-label {
@@ -540,19 +556,48 @@ body {
   .todo-text {
     font-size: 0.9rem; /* Slightly smaller text */
     margin-right: 0.3rem; /* Even smaller margin */
+    overflow: hidden; /* Prevent text overflow */
+    text-overflow: ellipsis; /* Add ellipsis for long text */
+    white-space: nowrap; /* Prevent text wrapping */
+    max-width: 35%; /* Further limit the width for very small screens */
   }
 
   .todo-deadline {
-    font-size: 0.8rem; /* Smaller deadline text */
+    font-size: 0.7rem; /* Even smaller deadline text */
     margin: 0 0.3rem; /* Even smaller margin */
+    white-space: nowrap; /* Prevent wrapping */
+    max-width: 25%; /* Further limit the width for very small screens */
+    overflow: hidden; /* Prevent overflow */
+    text-overflow: ellipsis; /* Add ellipsis for long deadlines */
+  }
+
+  .todo-item {
+    flex-direction: row; /* Keep items in a row */
+    align-items: center; /* Vertically center the content */
+    padding: 0.8rem;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    justify-content: space-between; /* Ensure actions stay on the right */
+    min-height: 40px; /* Slightly smaller height for very small screens */
+  }
+
+  .todo-actions {
+    flex: none; /* Prevent actions from stretching */
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 0.3rem; /* Smaller gap for extra small screens */
+    display: flex !important; /* Force the actions to be visible */
+    align-items: center; /* Vertically center the buttons */
+    min-width: 30px; /* Ensure enough space for the delete button */
+  }
+
+  .action-button {
+    font-size: 0.9rem; /* Smaller icons for extra small screens */
+    padding: 0.2rem; /* Even smaller padding */
+    display: flex; /* Ensure the button is visible */
+    align-items: center;
+    justify-content: center;
   }
 
   .overdue-label {
     font-size: 0.9rem; /* Smaller overdue label */
-  }
-
-  .action-button {
-    font-size: 0.9rem; /* Smaller icons */
-    padding: 0.2rem; /* Even smaller padding */
   }
 }
